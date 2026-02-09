@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나다봇 - 서비스 이용약관</title>
+    <meta name="description" content="나다봇 서비스 이용약관 안내 페이지입니다." />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-accent: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --bg-dark: #0a0e27;
+            --bg-card: rgba(255, 255, 255, 0.05);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --border-glow: rgba(102, 126, 234, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+            line-height: 1.7;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(0, 242, 254, 0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            padding: 30px 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease infinite;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { filter: hue-rotate(0deg); }
+            50% { filter: hue-rotate(10deg); }
+        }
+
+        .nav-button {
+            padding: 12px 32px;
+            background: var(--gradient-accent);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(250, 112, 154, 0.4);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(250, 112, 154, 0.6);
+        }
+
+        .content {
+            margin: 60px 0 100px;
+        }
+
+        .content-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 60px;
+            backdrop-filter: blur(10px);
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: var(--gradient-3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .last-updated {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+            padding-left: 20px;
+            border-left: 4px solid;
+            border-image: var(--gradient-2) 1;
+        }
+
+        h2:first-of-type { margin-top: 0; }
+
+        p { margin: 16px 0; color: var(--text-secondary); font-size: 1.05rem; }
+
+        ul { margin: 16px 0; padding-left: 40px; color: var(--text-secondary); }
+        ul li { margin: 12px 0; font-size: 1.05rem; }
+        ul li::marker { color: #4facfe; }
+
+        strong { color: var(--text-primary); font-weight: 700; }
+
+        a {
+            color: #4facfe;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        a:hover { color: #00f2fe; text-decoration: underline; }
+
+        .notice-box {
+            background: rgba(250, 112, 154, 0.1);
+            border: 1px solid rgba(250, 112, 154, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .notice-box p { margin: 0; color: #fa709a; }
+
+        .contact-section {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+        .contact-section h2 { margin-top: 0; border: none; padding-left: 0; }
+
+        footer {
+            text-align: center;
+            padding: 60px 0;
+            margin-top: 80px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        footer p { color: var(--text-secondary); margin: 10px 0; }
+
+        .footer-links {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        .footer-link:hover { color: #4facfe; }
+
+        @media (max-width: 768px) {
+            .content-card { padding: 40px 30px; }
+            .page-title { font-size: 2rem; }
+            h2 { font-size: 1.5rem; }
+            .header-content { flex-direction: column; gap: 20px; align-items: flex-start; }
+        }
+
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="https://nada-bot.kro.kr" class="logo">나다봇</a>
+                <a href="https://nada-bot.kro.kr" class="nav-button">홈으로</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+            <div class="content-card">
+                <h1 class="page-title">서비스 이용약관</h1>
+                <p class="last-updated">마지막 수정일: 2026년 1월 22일</p>
+
+                <p class="intro-text">
+                    본 약관은 나다봇(이하 "봇")이 Discord 플랫폼에서 제공하는 서비스의 이용과 관련하여
+                    이용자와 운영자 간의 권리, 의무 및 책임사항을 규정함을 목적으로 합니다.
+                </p>
+
+                <h2>1. 서비스 제공</h2>
+                <p>
+                    나다봇은 Discord 서버 내에서 공지, DM 전송, 역할 관리, 문의 처리 등
+                    관리 및 편의 기능을 제공합니다.
+                </p>
+                <div class="notice-box">
+                    <p>일부 기능은 Discord 정책, 서버 설정 또는 권한에 따라 제한될 수 있습니다.</p>
+                </div>
+
+                <h2>2. 이용자의 의무</h2>
+                <p>이용자는 다음 행위를 하여서는 안 됩니다.</p>
+                <ul>
+                    <li>타인의 개인정보를 무단으로 수집·저장·유출하는 행위</li>
+                    <li>명령어 남용, 스팸 행위 등 서버 운영을 방해하는 행위</li>
+                    <li>봇의 기능을 변조하거나 비정상적으로 악용하는 행위</li>
+                </ul>
+
+                <h2>3. 서비스 이용 제한</h2>
+                <p>
+                    이용자가 본 약관 또는 Discord 정책을 위반할 경우,
+                    일부 또는 전체 서비스 이용이 제한될 수 있습니다.
+                </p>
+                <p>
+                    운영자는 서비스의 안정적인 운영을 위해
+                    사전 공지 후 서비스의 일부 또는 전부를 변경하거나 중단할 수 있습니다.
+                </p>
+
+                <h2>4. 개인정보 및 데이터</h2>
+                <p>
+                    봇을 통해 수집되는 정보는
+                    <a href="https://nada-bot-privacy.kro.kr">개인정보처리방침</a>에 따라 처리됩니다.
+                </p>
+                <p>
+                    서버 내 데이터 관리 및 운영 책임은 해당 Discord 서버의 소유자에게 있습니다.
+                </p>
+
+                <h2>5. 책임의 한계</h2>
+                <p>
+                    나다봇은 무료로 제공되는 서비스로,
+                    서비스 이용으로 발생한 간접적 또는 부수적인 손해에 대해
+                    관련 법령이 허용하는 범위 내에서 책임을 지지 않습니다.
+                </p>
+
+                <h2>6. 약관 변경</h2>
+                <p>
+                    본 약관은 관련 법령 또는 서비스 정책 변경에 따라 수정될 수 있으며,
+                    변경 후 서비스를 계속 이용하는 경우
+                    변경된 약관에 동의한 것으로 간주합니다.
+                </p>
+
+                <div class="contact-section">
+                    <h2>문의</h2>
+                    <p>
+                        <strong>서비스 운영자:</strong> 나다봇 운영자<br><br>
+                        <strong>문의 방법:</strong><br>
+                        • Discord: <a href="https://discord.gg/3C9eZQX8" target="_blank">나다봇 공식 Discord 서버</a><br>
+                        • 이메일: <a href="mailto:support@nada-bot.kro.kr">support@nada-bot.kro.kr</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>나다봇과 함께 더 나은 Discord 경험을 시작하세요</p>
+            <div class="footer-links">
+                <a href="https://nada-bot.kro.kr" class="footer-link">홈</a>
+                <a href="https://nada-bot-terms.kro.kr" class="footer-link">서비스 이용약관</a>
+                <a href="https://nada-bot-privacy.kro.kr" class="footer-link">개인정보처리방침</a>
+            </div>
+            <p style="margin-top: 30px; font-size: 0.9rem;">© <span id="year"></span> 나다봇. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -100px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('h2, .notice-box, .contact-section').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
