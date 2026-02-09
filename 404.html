@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>404 - 나다봇</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Pretendard", sans-serif;
+      background: linear-gradient(135deg, #0f0f1a, #1a1a2e);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .box {
+      max-width: 520px;
+      padding: 50px;
+      border-radius: 22px;
+      background: rgba(255,255,255,0.06);
+      box-shadow: 0 0 35px rgba(0,0,0,0.5);
+      animation: fadeIn 0.8s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .bot {
+      font-size: 60px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 95px;
+      margin: 0;
+      color: #ff4d6d;
+      text-shadow: 0 0 15px rgba(255, 77, 109, 0.6);
+    }
+
+    p {
+      font-size: 18px;
+      margin: 15px 0 30px;
+      opacity: 0.85;
+      line-height: 1.5;
+    }
+
+    a {
+      display: inline-block;
+      margin: 8px;
+      padding: 13px 22px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.2s;
+    }
+
+    .home {
+      background: #ff4d6d;
+      color: white;
+    }
+
+    .home:hover {
+      transform: scale(1.06);
+    }
+
+    .cmd {
+      background: rgba(255,255,255,0.08);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .cmd:hover {
+      transform: scale(1.06);
+    }
+
+    .footer {
+      margin-top: 25px;
+      font-size: 13px;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <div class="bot">🤖💨</div>
+
+    <h1>404</h1>
+
+    <p>
+      페이지를 찾을 수 없어요…<br>
+      나다봇이 길을 잃었어요 😭
+    </p>
+
+    <!-- 버튼 -->
+    <a class="home" href="/">🏠 홈으로</a>
+
+    <!-- 홈 아래 명령어 섹션으로 점프 -->
+    <a class="cmd" href="/#commands">📌 명령어 보기</a>
+
+    <div class="footer">
+      nada-bot.kro.kr
+    </div>
+  </div>
+</body>
+</html>
