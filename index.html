@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>나다봇 - Discord Bot</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -31,27 +30,36 @@
             background: var(--bg-dark);
             color: var(--text-primary);
             overflow-x: hidden;
+            position: relative;
         }
 
         body::before {
             content: '';
             position: fixed;
-            inset: 0;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background:
-                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.12) 0%, transparent 55%),
-                radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.12) 0%, transparent 55%),
-                radial-gradient(circle at 40% 20%, rgba(0, 242, 254, 0.10) 0%, transparent 55%);
+                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(245, 87, 108, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(0, 242, 254, 0.08) 0%, transparent 50%);
             pointer-events: none;
+            z-index: 0;
         }
 
         .container {
             max-width: 1200px;
-            margin: auto;
+            margin: 0 auto;
             padding: 0 20px;
+            position: relative;
+            z-index: 1;
         }
 
         header {
             padding: 30px 0;
+            position: relative;
+            z-index: 10;
         }
 
         .header-content {
@@ -72,14 +80,9 @@
             padding: 12px 32px;
             background: var(--gradient-accent);
             border-radius: 50px;
-            text-decoration: none;
             color: white;
             font-weight: 600;
-            transition: 0.3s;
-        }
-
-        .nav-button:hover {
-            transform: translateY(-2px);
+            text-decoration: none;
         }
 
         .hero {
@@ -98,21 +101,18 @@
         .hero p {
             font-size: 1.5rem;
             color: var(--text-secondary);
-            margin: 20px 0 40px;
+            margin-top: 20px;
         }
 
         .cta-button {
+            display: inline-block;
+            margin-top: 40px;
             padding: 18px 48px;
             background: var(--gradient-1);
             border-radius: 50px;
-            text-decoration: none;
             color: white;
-            font-size: 1.2rem;
-            transition: 0.3s;
-        }
-
-        .cta-button:hover {
-            transform: scale(1.05);
+            font-weight: 600;
+            text-decoration: none;
         }
 
         .stats {
@@ -128,7 +128,6 @@
             border-radius: 20px;
             padding: 40px;
             text-align: center;
-            backdrop-filter: blur(10px);
         }
 
         .stat-number {
@@ -140,48 +139,20 @@
         }
 
         .stat-label {
+            margin-top: 10px;
             color: var(--text-secondary);
         }
 
-        /* ✅ Features */
-        .features {
-            padding: 80px 0;
-        }
-
         .section-title {
-            text-align: center;
             font-size: 3rem;
             font-weight: 800;
+            text-align: center;
             margin-bottom: 60px;
             background: var(--gradient-1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        .feature-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-glow);
-            border-radius: 20px;
-            padding: 40px;
-            transition: 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-6px);
-        }
-
-        .feature-icon {
-            font-size: 2.2rem;
-            margin-bottom: 15px;
-        }
-
-        /* ✅ Status */
         .bot-status {
             padding: 80px 0;
         }
@@ -191,65 +162,60 @@
             border: 1px solid var(--border-glow);
             border-radius: 20px;
             padding: 50px;
-            max-width: 700px;
-            margin: auto;
+            max-width: 800px;
+            margin: 0 auto;
             text-align: center;
         }
 
-        .status-header {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .status-indicator {
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: #00ff88;
-            box-shadow: 0 0 15px rgba(0,255,136,0.6);
-        }
-
-        .status-text {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        .status-grid {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-        }
-
         .status-value {
-            font-size: 1.8rem;
+            font-size: 2rem;
             font-weight: 800;
             background: var(--gradient-3);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            margin-top: 10px;
+        }
+
+        .commands {
+            padding: 80px 0;
+        }
+
+        .commands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .command-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 15px;
+            padding: 25px;
+        }
+
+        .command-name {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            color: #4facfe;
+            font-weight: 700;
+        }
+
+        .command-desc {
+            margin-top: 8px;
+            color: var(--text-secondary);
         }
 
         footer {
             text-align: center;
-            padding: 60px 0;
-            margin-top: 80px;
+            padding: 70px 0;
             border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 80px;
         }
 
-        .footer-button {
-            padding: 15px 40px;
-            background: var(--gradient-1);
-            border-radius: 50px;
+        .footer-link {
+            margin: 0 15px;
+            color: var(--text-secondary);
             text-decoration: none;
-            color: white;
-            display: inline-block;
-            margin-top: 20px;
-        }
-
-        html {
-            scroll-behavior: smooth;
         }
     </style>
 </head>
@@ -257,111 +223,85 @@
 <body>
 
 <header>
-    <div class="container header-content">
-        <div class="logo">나다봇</div>
-        <a href="#invite" class="nav-button">서버에 초대하기</a>
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">나다봇</div>
+            <a href="#invite" class="nav-button">서버에 초대하기</a>
+        </div>
     </div>
 </header>
 
 <main>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="container">
-            <h1>나다봇</h1>
-            <p>당신의 Discord 서버를 더욱 특별하게</p>
-            <a href="#invite" class="cta-button">지금 시작하기</a>
+<section class="hero">
+    <div class="container">
+        <h1>나다봇</h1>
+        <p>당신의 Discord 서버를 더욱 특별하게</p>
+        <a href="#invite" class="cta-button">지금 시작하기</a>
+    </div>
+</section>
+
+<section class="container">
+    <div class="stats">
+        <div class="stat-card">
+            <div class="stat-number">10</div>
+            <div class="stat-label">활성 서버</div>
         </div>
-    </section>
-
-    <!-- Stats -->
-    <section class="container">
-        <div class="stats">
-            <div class="stat-card">
-                <div class="stat-number">10</div>
-                <div class="stat-label">활성 서버</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">8K+</div>
-                <div class="stat-label">사용자</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number">99.9%</div>
-                <div class="stat-label">가동률</div>
-            </div>
+        <div class="stat-card">
+            <div class="stat-number">8K+</div>
+            <div class="stat-label">사용자</div>
         </div>
-    </section>
-
-    <!-- Features -->
-    <section class="features">
-        <div class="container">
-            <h2 class="section-title">기능</h2>
-
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">⚔️</div>
-                    <h3>강력한 관리</h3>
-                    <p>경고, 밴, 킥 등 서버 관리 기능 지원</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">🧹</div>
-                    <h3>자동 청소</h3>
-                    <p>채팅 자동 삭제로 서버를 깔끔하게 유지</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">🎮</div>
-                    <h3>재미 요소</h3>
-                    <p>퀴즈 시스템과 랭킹 기능까지 제공</p>
-                </div>
-            </div>
+        <div class="stat-card">
+            <div class="stat-number">99.9%</div>
+            <div class="stat-label">가동률</div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Bot Status -->
-    <section class="bot-status">
-        <div class="container">
-            <h2 class="section-title">봇 상태</h2>
-
-            <div class="status-container">
-                <div class="status-header">
-                    <div class="status-indicator"></div>
-                    <div class="status-text" id="statusText">온라인</div>
-                </div>
-
-                <div class="status-grid">
-                    <div>
-                        <div class="status-label">핑</div>
-                        <div class="status-value" id="pingValue">191ms</div>
-                    </div>
-                </div>
-            </div>
+<section class="bot-status">
+    <div class="container">
+        <h2 class="section-title">봇 상태</h2>
+        <div class="status-container">
+            <div>응답 시간</div>
+            <div class="status-value">191ms</div>
         </div>
-    </section>
+    </div>
+</section>
 
-</main>
+<section class="commands">
+    <div class="container">
+        <h2 class="section-title">명령어</h2>
 
-<!-- Footer -->
+        <div class="commands-grid">
+            <div class="command-item"><div class="command-name">/경고</div><div class="command-desc">사용자에게 경고를 부여합니다</div></div>
+            <div class="command-item"><div class="command-name">/경고삭제</div><div class="command-desc">사용자의 경고를 삭제합니다</div></div>
+            <div class="command-item"><div class="command-name">/경고조회</div><div class="command-desc">사용자의 경고 목록을 확인합니다</div></div>
+            <div class="command-item"><div class="command-name">/공지</div><div class="command-desc">서버에 공지를 전송합니다</div></div>
+            <div class="command-item"><div class="command-name">/뮤트</div><div class="command-desc">사용자를 채팅 금지합니다</div></div>
+            <div class="command-item"><div class="command-name">/언뮤트</div><div class="command-desc">사용자의 뮤트를 해제합니다</div></div>
+            <div class="command-item"><div class="command-name">/밴</div><div class="command-desc">사용자를 서버에서 차단합니다</div></div>
+            <div class="command-item"><div class="command-name">/언밴</div><div class="command-desc">차단된 사용자를 해제합니다</div></div>
+            <div class="command-item"><div class="command-name">/킥</div><div class="command-desc">사용자를 서버에서 추방합니다</div></div>
+            <div class="command-item"><div class="command-command-name">/청소</div><div class="command-desc">메시지를 일괄 삭제합니다</div></div>
+            <div class="command-item"><div class="command-name">/봇정보</div><div class="command-desc">봇의 정보를 확인합니다</div></div>
+            <div class="command-item"><div class="command-name">/설정</div><div class="command-desc">서버 설정을 관리합니다</div></div>
+            <div class="command-item"><div class="command-name">/퀴즈</div><div class="command-desc">퀴즈를 시작합니다</div></div>
+            <div class="command-item"><div class="command-name">/퀴즈랭킹</div><div class="command-desc">퀴즈 랭킹을 확인합니다</div></div>
+        </div>
+    </div>
+</section>
+
 <footer id="invite">
     <div class="container">
         <p>나다봇과 함께 더 나은 Discord 경험을 시작하세요</p>
-
-        <a href="https://discord.com/api/oauth2/authorize?client_id=1463689452730847262&permissions=8&scope=bot%20applications.commands"
-           class="footer-button" target="_blank">
-            서버에 추가하기
-        </a>
-
-        <p style="margin-top:40px; font-size:0.9rem;">
-            © 2026 나다봇. All rights reserved.
-        </p>
+        <div style="margin-top:25px;">
+            <a href="https://nada-bot.kro.kr/terms" class="footer-link">서비스 이용약관</a>
+            <a href="https://nada-bot.kro.kr/privacy" class="footer-link">개인정보처리방침</a>
+        </div>
+        <p style="margin-top:40px;">© 나다봇. All rights reserved.</p>
     </div>
 </footer>
 
-<script>
-    // ✅ 온라인 고정 그대로 유지
-    document.getElementById("statusText").textContent = "온라인";
-</script>
-
+</main>
 </body>
 </html>
