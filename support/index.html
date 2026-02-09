@@ -416,7 +416,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="logo">NADA BOT</div>
+            <div class="logo">NADA.BOT</div>
             <div class="subtitle">문의하기</div>
         </div>
 
@@ -487,18 +487,19 @@
         </div>
 
         <div class="footer">
-            Made with  by <a href="https://nada.bot.kro.kr" target="_blank">NADA.BOT</a>
+            Made with ❤️ by <a href="https://nada.bot.kro.kr" target="_blank">NADA.BOT</a>
         </div>
     </div>
 
     <script>
         // ⚠️ 중요: 실제 사용 시 아래 값들을 설정해주세요
         const DISCORD_CLIENT_ID = '1463689452730847262'; // 디스코드 애플리케이션 클라이언트 ID
-        const DISCORD_REDIRECT_URI = 'https://nada.bot.kro.kr/support'; // 이 페이지 URL
+        const DISCORD_REDIRECT_URI = 'https://nadabot.kro.kr/support'; // 이 페이지 URL
         const WEBHOOK_URL = 'https://discord.com/api/webhooks/1467650053538582715/m9Zl4esyszuH_lj850wt_mNPs-vTIEaulpe4Ge86F6wc96_x3gAsRWrDFQAceDrpuVLZ'; // 디스코드 웹훅 URL
 
         // 페이지 로드 시 OAuth 콜백 처리
         window.addEventListener('load', () => {
+            // Hash fragment에서 access_token 확인 (implicit grant)
             const fragment = new URLSearchParams(window.location.hash.slice(1));
             const accessToken = fragment.get('access_token');
 
@@ -506,19 +507,20 @@
                 fetchUserInfo(accessToken);
                 // URL에서 해시 제거
                 window.history.replaceState({}, document.title, window.location.pathname);
-            } else {
-                // 저장된 사용자 정보 확인
-                const savedUser = localStorage.getItem('discordUser');
-                if (savedUser) {
-                    const user = JSON.parse(savedUser);
-                    showForm(user);
-                }
+                return;
+            }
+
+            // 저장된 사용자 정보 확인
+            const savedUser = localStorage.getItem('discordUser');
+            if (savedUser) {
+                const user = JSON.parse(savedUser);
+                showForm(user);
             }
         });
 
-        // 디스코드 로그인
+        // 디스코드 로그인 (implicit grant 방식)
         function loginWithDiscord() {
-            const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${encodeURIComponent(DISCORD_REDIRECT_URI)}&response_type=token&scope=identify`;
+            const authUrl = `https://discord.com/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${encodeURIComponent(DISCORD_REDIRECT_URI)}&response_type=token&scope=identify`;
             window.location.href = authUrl;
         }
 
@@ -654,4 +656,4 @@
         }
     </script>
 </body>
-  </html>
+</html>
