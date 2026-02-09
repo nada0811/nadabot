@@ -217,6 +217,19 @@
             color: var(--text-secondary);
             text-decoration: none;
         }
+
+        /* ✅ 초대 버튼 스타일 추가 */
+        .invite-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 16px 45px;
+            background: var(--gradient-1);
+            border-radius: 50px;
+            color: white;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
     </style>
 </head>
 
@@ -294,11 +307,20 @@
 <footer id="invite">
     <div class="container">
         <p>나다봇과 함께 더 나은 Discord 경험을 시작하세요</p>
+
+        <!-- ✅ 봇 초대하기 버튼 추가 -->
+        <a href="https://discord.com/api/oauth2/authorize?client_id=YOUR_CLIENT_ID&permissions=8&scope=bot%20applications.commands"
+           class="invite-button"
+           target="_blank">
+           서버에 추가하기
+        </a>
+
         <div style="margin-top:25px;">
             <a href="https://nada-bot.kro.kr/terms" class="footer-link">서비스 이용약관</a>
             <a href="https://nada-bot.kro.kr/privacy" class="footer-link">개인정보처리방침</a>
         </div>
-        <p style="margin-top:40px;">© 나다봇. All rights reserved.</p>
+
+        <p style="margin-top:40px;">© 2026 나다봇. All rights reserved.</p>
     </div>
 </footer>
 
