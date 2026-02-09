@@ -167,6 +167,28 @@
             text-align: center;
         }
 
+        /* ✅ 온라인 표시 추가 */
+        .status-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .status-indicator {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #00ff88;
+            box-shadow: 0 0 15px rgba(0,255,136,0.6);
+        }
+
+        .status-text {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
         .status-value {
             font-size: 2rem;
             font-weight: 800;
@@ -218,7 +240,6 @@
             text-decoration: none;
         }
 
-        /* ✅ 초대 버튼 스타일 추가 */
         .invite-button {
             display: inline-block;
             margin-top: 30px;
@@ -275,6 +296,13 @@
     <div class="container">
         <h2 class="section-title">봇 상태</h2>
         <div class="status-container">
+
+            <!-- ✅ 온라인 표시 복구 -->
+            <div class="status-header">
+                <div class="status-indicator"></div>
+                <div class="status-text">온라인</div>
+            </div>
+
             <div>응답 시간</div>
             <div class="status-value">191ms</div>
         </div>
@@ -308,7 +336,6 @@
     <div class="container">
         <p>나다봇과 함께 더 나은 Discord 경험을 시작하세요</p>
 
-        <!-- ✅ 봇 초대하기 버튼 추가 -->
         <a href="https://discord.com/api/oauth2/authorize?client_id=YOUR_CLIENT_ID&permissions=8&scope=bot%20applications.commands"
            class="invite-button"
            target="_blank">
