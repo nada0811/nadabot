@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>나다봇 1:1 문의</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #5865F2 0%, #4752C4 100%);
+            padding: 40px;
+            text-align: center;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .login-section, .inquiry-section, .admin-section {
+            display: none;
+        }
+
+        .login-section.active, .inquiry-section.active, .admin-section.active {
+            display: block;
+        }
+
+        .discord-login-btn {
+            background: #5865F2;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: background 0.3s;
+        }
+
+        .discord-login-btn:hover {
+            background: #4752C4;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 20px;
+            background: #f7f7f7;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .user-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid #5865F2;
+        }
+
+        .user-details h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .user-details p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #5865F2;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .logout-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .inquiry-item {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid #5865F2;
+        }
+
+        .inquiry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .inquiry-title {
+            font-weight: 600;
+            font-size: 18px;
+        }
+
+        .inquiry-date {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .inquiry-content {
+            color: #444;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .inquiry-user {
+            color: #5865F2;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .admin-badge {
+            background: #e74c3c;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .success-message {
+            background: #2ecc71;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 나다봇 1:1 문의</h1>
+            <p>디스코드 로그인으로 간편하게 문의하세요</p>
+        </div>
+
+        <div class="content">
+            <!-- 로그인 섹션 -->
+            <div class="login-section active">
+                <button class="discord-login-btn" onclick="loginWithDiscord()">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"/>
+                    </svg>
+                    Discord로 로그인
+                </button>
+            </div>
+
+            <!-- 문의 작성 섹션 -->
+            <div class="inquiry-section">
+                <div class="user-info" id="userInfo"></div>
+                
+                <div class="success-message" id="successMessage">
+                    ✅ 문의가 성공적으로 전송되었습니다!
+                </div>
+
+                <form onsubmit="submitInquiry(event)">
+                    <div class="form-group">
+                        <label for="title">제목</label>
+                        <input type="text" id="title" required placeholder="문의 제목을 입력하세요">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="content">문의 내용</label>
+                        <textarea id="content" required placeholder="문의 내용을 상세히 작성해주세요"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">문의 전송</button>
+                </form>
+
+                <button class="logout-btn" onclick="logout()">로그아웃</button>
+            </div>
+
+            <!-- 관리자 섹션 -->
+            <div class="admin-section">
+                <div class="user-info" id="adminUserInfo"></div>
+                
+                <h2 style="margin-bottom: 20px;">📋 전체 문의 내역 <span class="admin-badge">ADMIN</span></h2>
+                
+                <div id="inquiriesList"></div>
+
+                <button class="logout-btn" onclick="logout()">로그아웃</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 시뮬레이션용 사용자 데이터
+        let currentUser = null;
+        let inquiries = [];
+
+        // Discord 로그인 시뮬레이션
+        function loginWithDiscord() {
+            // 실제로는 Discord OAuth2 흐름을 거치지만, 여기서는 시뮬레이션
+            const users = [
+                { id: '1', username: '._.nada', discriminator: '0000', avatar: 'https://cdn.discordapp.com/embed/avatars/0.png', isAdmin: true },
+                { id: '2', username: '일반유저', discriminator: '1234', avatar: 'https://cdn.discordapp.com/embed/avatars/1.png', isAdmin: false }
+            ];
+
+            // 데모를 위해 랜덤하게 선택 (실제로는 관리자로 테스트하려면 첫 번째 사용자 선택)
+            const selectedUser = users[0]; // 관리자로 로그인
+            // const selectedUser = users[Math.floor(Math.random() * users.length)];
+            
+            currentUser = selectedUser;
+            localStorage.setItem('user', JSON.stringify(currentUser));
+            
+            showUserSection();
+        }
+
+        function showUserSection() {
+            document.querySelector('.login-section').classList.remove('active');
+            
+            if (currentUser.isAdmin) {
+                document.querySelector('.admin-section').classList.add('active');
+                displayAdminInfo();
+                loadInquiries();
+            } else {
+                document.querySelector('.inquiry-section').classList.add('active');
+                displayUserInfo();
+            }
+        }
+
+        function displayUserInfo() {
+            const userInfo = document.getElementById('userInfo');
+            userInfo.innerHTML = `
+                <img src="${currentUser.avatar}" alt="Avatar" class="user-avatar">
+                <div class="user-details">
+                    <h3>${currentUser.username}</h3>
+                    <p>Discord ID: ${currentUser.username}#${currentUser.discriminator}</p>
+                </div>
+            `;
+        }
+
+        function displayAdminInfo() {
+            const adminUserInfo = document.getElementById('adminUserInfo');
+            adminUserInfo.innerHTML = `
+                <img src="${currentUser.avatar}" alt="Avatar" class="user-avatar">
+                <div class="user-details">
+                    <h3>${currentUser.username} <span class="admin-badge">ADMIN</span></h3>
+                    <p>Discord ID: ${currentUser.username}#${currentUser.discriminator}</p>
+                </div>
+            `;
+        }
+
+        function submitInquiry(event) {
+            event.preventDefault();
+            
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+            
+            const inquiry = {
+                id: Date.now(),
+                title: title,
+                content: content,
+                user: currentUser.username,
+                userId: currentUser.id,
+                date: new Date().toLocaleString('ko-KR'),
+                timestamp: Date.now()
+            };
+            
+            inquiries.push(inquiry);
+            localStorage.setItem('inquiries', JSON.stringify(inquiries));
+            
+            // 폼 초기화
+            document.getElementById('title').value = '';
+            document.getElementById('content').value = '';
+            
+            // 성공 메시지 표시
+            const successMessage = document.getElementById('successMessage');
+            successMessage.classList.add('show');
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 3000);
+        }
+
+        function loadInquiries() {
+            const storedInquiries = localStorage.getItem('inquiries');
+            if (storedInquiries) {
+                inquiries = JSON.parse(storedInquiries);
+            }
+            displayInquiries();
+        }
+
+        function displayInquiries() {
+            const inquiriesList = document.getElementById('inquiriesList');
+            
+            if (inquiries.length === 0) {
+                inquiriesList.innerHTML = '<p style="text-align: center; color: #666; padding: 40px;">아직 문의가 없습니다.</p>';
+                return;
+            }
+            
+            // 최신순으로 정렬
+            const sortedInquiries = [...inquiries].sort((a, b) => b.timestamp - a.timestamp);
+            
+            inquiriesList.innerHTML = sortedInquiries.map(inquiry => `
+                <div class="inquiry-item">
+                    <div class="inquiry-header">
+                        <div class="inquiry-title">${inquiry.title}</div>
+                        <div class="inquiry-date">${inquiry.date}</div>
+                    </div>
+                    <div class="inquiry-content">${inquiry.content}</div>
+                    <div class="inquiry-user">작성자: ${inquiry.user}</div>
+                </div>
+            `).join('');
+        }
+
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('user');
+            
+            document.querySelector('.inquiry-section').classList.remove('active');
+            document.querySelector('.admin-section').classList.remove('active');
+            document.querySelector('.login-section').classList.add('active');
+        }
+
+        // 페이지 로드 시 세션 확인
+        window.onload = function() {
+            const storedUser = localStorage.getItem('user');
+            if (storedUser) {
+                currentUser = JSON.parse(storedUser);
+                showUserSection();
+            }
+        };
+    </script>
+</body>
+</html>
